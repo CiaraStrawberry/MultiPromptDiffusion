@@ -1,7 +1,7 @@
 # MultiPromptDiffusion
 Modification of sd 1.5 to take multiple prompts per cross attention layer
 
-![grid_20250103-190405](https://github.com/user-attachments/assets/6832d79b-334f-4f4f-bf3c-e8c704611732)
+![grid_20250103-191143](https://github.com/user-attachments/assets/1017a168-0c20-44e9-89c5-c008dfc074f8)
 
 
 model here: https://huggingface.co/CiaraRowles/MultiPromptDiffusion
