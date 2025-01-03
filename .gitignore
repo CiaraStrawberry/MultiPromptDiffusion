@@ -1,0 +1,4 @@
+
+*.pyc
+/models
+/grid_test

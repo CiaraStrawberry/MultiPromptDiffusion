@@ -1,0 +1,11 @@
+accelerate
+torch
+xformers
+diffusers==0.29.2
+transformers
+safetensors
+einops
+onnxruntime-gpu
+opencv-python
+sentencepiece
+wandb
