@@ -134,22 +134,25 @@ all_ckpts = [
 # Define each column of the grid as a *set* of prompts.
 prompt_sets = [
     {
-        "prompt":   "a bride at a garden wedding with a butterfly",
-        "prompt_1": "there's a white gazebo",
+        "prompt":   "a cow in a garden",
+        "prompt_1": "the garden has roses",
+        "prompt_2": "there's a white gazebo",
+        "prompt_3": "the butterfly is blue",
+        "prompt_4": "the butterfly is near some flowers",
+        
     },
     {
-        "prompt":   "sunset sailing scene",
+        "prompt":   "a picture of a boat on the sea",
         "prompt_1": "the boat is a sailboat",
-        "prompt_2": "dramatic clouds at sunset",
-        "prompt_3": "seabirds flying overhead",
+        "prompt_2": "cloudy",
     },
     {
-        "prompt":   "concert performer",
+        "prompt":   "a car driving on the road",
         "prompt_1": "colorful stage lights",
         "prompt_2": "enthusiastic audience",
     },
     {
-        "prompt":   "male chef in restaurant",
+        "prompt":   "chef in restaurant",
         "prompt_1": "cooking in professional kitchen",
         "prompt_2": "wearing chef's uniform",
         "prompt_3": "using professional equipment",
@@ -162,8 +165,7 @@ prompt_sets = [
 all_images = []
 num_inference_steps = 30
 scale = 1.0
-seed = 99122525
-
+seed = 991423
 # We will track which checkpoint row we are in, so
 # we can label them properly later.
 row_labels = []
@@ -172,10 +174,12 @@ col_labels = []
 # Create a short label for each column, e.g., from "prompt"
 # or some short substring if you prefer
 for pset in prompt_sets:
-    main_prompt = pset["prompt"]
-    # If you want to shorten it, do something like:
-    # main_prompt = main_prompt[:40] + "..." if len(main_prompt) > 40 else main_prompt
-    col_labels.append(main_prompt)
+    prompts_for_label = []
+    for k in sorted(pset.keys()):  # sort so prompt < prompt_1 < prompt_2 ...
+        if k.startswith("prompt"):
+            prompts_for_label.append(pset[k])
+    # Join them with newlines
+    col_labels.append("\n".join(prompts_for_label))
 
 first = True
 for ckpt in all_ckpts:
@@ -193,7 +197,6 @@ for ckpt in all_ckpts:
         pipe,
         ip_ckpt_path,
         device=device,
-        num_tokens=32  # adjust as appropriate for your IP adapter
     )
 
     # Generate one image per prompt set for this checkpoint
